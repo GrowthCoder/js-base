@@ -12,7 +12,6 @@ class Dep {
   addSub (sub) {
     this.subs.push(sub)
   }
-
   notify () {
     this.subs.forEach(item => {
       item.update()
