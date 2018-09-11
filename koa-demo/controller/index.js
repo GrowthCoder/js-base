@@ -16,7 +16,7 @@ module.exports = {
     // 此处解析json格式
     const { username, password } = ctx.request.body
 
-    ctx.body = `<h2>hello koa ${username} ${password}</h2>`
+    ctx.body = JSON.stringify({username, password})
   },
   data: async(ctx, next) => {
     ctx.body = '<h3>hello data</h3>'

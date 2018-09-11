@@ -2,7 +2,6 @@ class Vue {
   constructor (options) {
     this._data = options.data
     this.observer()
-
   }
   observer () {
     if (!this._data || typeof this._data !== 'object') return
