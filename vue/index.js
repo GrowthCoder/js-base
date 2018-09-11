@@ -12,8 +12,8 @@ class Vue {
   }
   defineReactive (obj, key, value) {
     Object.defineProperty(obj, key, {
-      enumerable: true,
-      configurable: true,
+      enumerable: true, // 属性可枚举
+      configurable: true, // 属性可被修改或删除 
       get: () => {
         return value
       },
