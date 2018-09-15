@@ -3,4 +3,5 @@
 - [vue源码学习](./vue/index.js)
 - [koa学习](./koa-demo/app.js)
 - [发布-订阅模式](./pub-sub/common.js)
+- [策略模式](./strategy/index.js)
 - [闭包](./closure/index.js)
