@@ -1,7 +1,7 @@
 /**
  * 虚拟DOM
  * Virtual DOM 是以js对象作为基础的树，用对象属性来描述节点，不依赖真实环境，是对真实DOM的抽象
- * 
+ * render function 会被转化成 VNode 节点
  */
 class VNode {
   constructor (tag, data, children, text, elm) {
@@ -55,4 +55,4 @@ function render () {
   )
 }
 
-console.log(createEmptyNode())
+console.log(JSON.stringify(render()))

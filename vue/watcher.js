@@ -3,6 +3,9 @@
  * 对界面用到的数据进行收集，多处用到收集 遍历通知更新
  * 没有用到不收集
  * 
+ * 触发条件
+ * 1、触发get方法
+ * 2、新建一个Watcher对象
 */
 // 订阅者
 class Dep {
@@ -23,7 +26,7 @@ class Watcher {
   constructor () {
     Dep.target = this
   }
-  update () {
+  update (item) {
     console.log('更新')    
   }
 }
@@ -83,7 +86,13 @@ let o = new Vue({
   }
 })
 
+let p = new Vue({
+  data: {
+    test: 'vivi'
+  }
+})
+console.log(o._data.demo)
 o._data.test = 'gaoting'
-o._data.demo = 'tingting'
+p._data.test = 'vivi2'
 Dep.target = null
 
