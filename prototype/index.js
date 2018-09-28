@@ -2,9 +2,6 @@
  * 原型链知识点汇总
  */
 //test
-function log() {
-  console.log()
-}
 function Person(name) {
   this.name = name
 }
