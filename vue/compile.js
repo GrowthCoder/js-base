@@ -2,6 +2,10 @@
  * compile 编译可以分为parse、optimize、generate 三个阶段
  * 最终需要得到render function
  * 
+ * parse
+ * 用正则将template模版进行字符串解析
+ * 得到指令、class、style等数据，形成 AST
+ * 
  * optimize
  * 一些静态节点不会根据数据变化而产生变化，这些节点没有对比的必要，patch的时候可以直接跳过
  * 经过optimize处理，会对静态节点加上static
@@ -12,12 +16,6 @@
  * 
  */
 
-/**
- * parse 
- * 利用正则解析template
- */
-
- 
 // isStatic
 function isStatic (node) {
   // Attr 类型节点 
@@ -68,3 +66,4 @@ function optimize (rootAst) {
   markStatic(rootAst)
   markStaticRoots(rootAst)
 }
+
