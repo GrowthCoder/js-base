@@ -1,5 +1,5 @@
 module.exports = {
   log: {
-  format: txt => `=====${txt}====`
+    format: txt => `=====${txt}====`
   }
 }
