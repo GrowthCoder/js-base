@@ -6,6 +6,8 @@ module.exports = {
       name: 'B'
     }, {
       name: 'C'
+    }, {
+      name: 'D'
     }]
   }
 }

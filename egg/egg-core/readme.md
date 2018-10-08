@@ -14,3 +14,11 @@
 - __dirname  /Users/gaoting/frontDemos/JS/egg/egg-core
 - __filename /Users/gaoting/frontDemos/JS/egg/egg-core/egg.js
 - process.cwd() /Users/gaoting/frontDemos/JS/egg/egg-core
+
+### async
+async 修饰function 说明是一个异步方法，返回一个Promise，只有通过then方法才能获取返回
+
+### koa.js插件
+- koa-useragent 返回用户agent
+- ctx是koa封装的上下文，包含响应和请求的所有方法
+
