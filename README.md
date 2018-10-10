@@ -6,8 +6,8 @@
 - [闭包](https://github.com/GrowthCoder/js/issues/2#issue-364715845)
 
 ## Javascript之设计模式
-- [发布-订阅模式](./pub-sub/common.js)
-- [策略模式](./strategy/index.js)
-
+- [发布-订阅模式](./design/pub-sub/common.js)
+- [策略模式](./design/strategy/index.js)
+- [策略模式](./design/strategy/index.js)
 ## Koa
 - [koa学习](./koa-demo/app.js)
