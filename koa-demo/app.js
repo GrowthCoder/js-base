@@ -24,7 +24,7 @@ router(app)
 
 // 查看userAgent
 app.use(async(ctx, next) => {
-  log(require('util').inspect(ctx.userAgent))
+  // log(require('util').inspect(ctx.userAgent))
 })
 
 app.listen(4000, () => {

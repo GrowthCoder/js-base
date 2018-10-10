@@ -10,6 +10,7 @@ module.exports = {
     ctx.body = '<h2>hello user</h2>'
     log(ctx.query, ctx.querystring) // 路由参数
     log(ctx.params) 
+    log(ctx.request.header)
   },
   register: async(ctx, next) => {
     // post 请求body 需要bodyparser解析
