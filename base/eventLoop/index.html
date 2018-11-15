@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>EventLoop</title>
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+  <style>
+    #anim,
+    #raf {
+      position: absolute;
+      left: 0px;
+      width: 150px;
+      height: 150px;
+      background: blue;
+      font-size: larger;
+      color: white;
+      border-radius: 10px;
+      padding: 1em;
+    }
+    #raf {
+      top: 300px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="message"></div>
+  <button id="start">start</button>
+  <button id="stop">stop</button>
+  <div id="anim">
+    setInterval 点击运行动画
+  </div>
+  <div id="raf">
+    RequestAnimationFrame 点击运行动画
+  </div>
+  <script>
+    // shim layer with setTimeout fallback
+    window.requestAnimFrame = (function () {
+      return window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function ( /* function FrameRequestCallback */ callback, /* DOMElement Element */ element) {
+          window.setTimeout(callback, 1000 / 60);
+        };
+    })();
+    // 模拟js阻塞浏览器渲染，掉帧情况。
+    function block() {
+      var then = Date.now()
+      var i = 0
+      var el = document.getElementById('message')
+      while (true) {
+        var now = Date.now()
+        if (now - then > 1000) {
+          // 5秒执行结束，之后进行渲染 
+          // 浏览器掉帧 浏览器每16ms渲染一次 如果js执行时间大于16ms 则会掉帧。
+          if (i++ >= 5) {
+            break;
+          }
+          el.innerText += 'hello!\n'
+          console.log(i)
+          then = now
+        }
+      }
+    }
+
+    // 开启/取消 requestAnimationFrame
+    var globalID;
+
+    function repeatOften() {
+      $("<div>1212</div>").appendTo("body");
+      globalID = requestAnimationFrame(repeatOften);
+    }
+
+    $("#start").on("click", function () {
+      globalID = requestAnimationFrame(repeatOften);
+    });
+
+    $("#stop").on("click", function () {
+      cancelAnimationFrame(globalID);
+    });
+
+
+    var demo = $("<div class='demo'>show hide test</div>")
+    demo.appendTo("body");
+    demo[0].style.display = 'none'
+
+    // requestAnimationFrame vs setTimeout
+    
+
+    var startTime = undefined;
+
+    function render(ele, time) {
+      var elem = document.getElementById(ele);
+      if (time === undefined)
+        time = Date.now();
+      if (startTime === undefined)
+        startTime = time;
+
+      elem.style.left = ((time - startTime) / 10 % 500) + "px";
+    }
+
+    // elem.onclick = function () {
+
+    //   // (function animloop() {
+    //   //   render();
+    //   //   requestAnimFrame(animloop);
+    //   // })();
+    // };
+    (function animloop() {
+      render('anim');
+      requestAnimFrame(animloop);
+    })();
+
+    setInterval(() => {
+      render('raf')
+    }, 0)
+    // setTimeout(() => {
+    //   elem.style.background = 'green'
+    // }, 0)
+    // 浏览器合并优化，渲染最后结果值500px，如何实现想要的效果？
+    // elem.style.transform = 'translateX(1000px)'
+    // elem.style.transition = 'transform 1s ease'
+    // elem.style.transform = 'translateX(500px)'
+
+    // // 解决方案：下一帧开始前执行
+    // requestAnimationFrame(() => {
+    //   // 下下一帧开始前执行
+    //   requestAnimationFrame(() => {
+    //     elem.style.transform = 'translateX(500px)',
+    //       elem.style.transition = 'transform 1s ease'
+    //   })
+    // })
+    // requestAnimationFrame(() => {
+    //   elem.style.background = 'red'
+    // })
+
+
+  </script>
+</body>
+
+</html>

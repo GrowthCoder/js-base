@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .box {
+      width: 100px;
+      height: 100px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <div class="box">1</div>
+    <div class="box" onclick="handleClick(this)">click</div>
+    <div class="box">1</div>
+    <div class="box">1</div>
+  </div>
+  <script>
+    function handleClick(e) {
+      console.log(this, e)
+    }
+    var socket = new WebSocket("ws://127.0.0.1:3000")
+
+    socket.onopen = (event) => {
+    // 发送一个初始化消息
+  	socket.send('Hello Server!')
+  	 // 服务器有响应数据触发
+    socket.onmessage = (event) => { 
+        console.log('Client received a message',event)
+    }
+    // 出错时触发，并且会关闭连接。这时可以根据错误信息进行按需处理
+    socket.onerror = (event) => {
+  	    console.log('error')
+    }
+    // 监听Socket的关闭
+    socket.onclose = (event) => { 
+        console.log('Client notified socket has closed',event)
+    }
+    // 关闭Socket
+    socket.close(1000, 'closing normally') 
+  }
+  </script>
+</body>
+</html>

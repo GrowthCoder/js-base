@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>BFC</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .main {
+
+    }
+    .left {
+      width: 100px;
+      height: 100px;
+      background: red;
+      float: left;
+    }
+    .right {
+      background: green;
+      height: 100px;
+      margin-left: 110px;
+      /* overflow: hidden; */
+    }
+    .bfc {
+      background: green;
+      height: 100px;
+      overflow: hidden;
+      /* margin-left: 10px; */
+    }
+    .float {
+      width: 100px;
+      height: 100px;
+      background: red;
+      float: left;
+      margin-right: 10px;
+    }
+    .float-left {
+      float: left;
+    }
+    .bfc-content {
+      display: table-cell; 
+      width: 9999px;
+    }
+    .table {
+      display: table-cell;
+      width: 500px;
+      height: 500px;
+      border: 1px solid #ccc;
+      text-align: center;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+  <h2>流体特性 自适应</h2>
+  <h3>不足：不够通用，前提需要知道元素尺寸 留白距离也不一定</h3>
+  <div class="main">
+    <div class="left">1</div>
+    <div class="right">2</div>
+  </div>
+
+  <h2>BFC特性</h2>
+  <h3>优势：</h3>
+  <div class="main">
+    <div class="float">1</div>
+    <div class="bfc">2</div>
+  </div>
+  <br>
+  <div class="main" style="overflow:hidden">
+    <img src="./2.jpg" alt="" class="float-left">
+    <div class="bfc-content">学习BFC，BFC很强大哦，好好学前端，前端很强大，加油，大兄弟！！</div>
+    <div class="bfc-content">学习BFC，BFC很强大哦，好好学前端，前端很强大，加油，大兄弟！！学习BFC，BFC很强大哦，好好学前端，前端很强大，加油，大兄弟！！</div>
+  </div>
+
+  <h2>display: table-cell</h2>
+
+  <br>
+  <div class="table">
+    <img src="./2.jpg" alt="">
+  </div>
+</body>
+</html>
