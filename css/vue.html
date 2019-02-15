@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Vue</title>
+  <script src="https://cdn.bootcss.com/vue/2.5.21/vue.js"></script>
+</head>
+
+<body>
+
+  <div id="dynamic-component-demo" class="demo">
+    <input type="text" v-model="currentTab">
+    <button v-on:click="add">添加tab</button>
+    <div v-for="item in tabs">{{item}}</div>
+  </div>
+  <script>
+    new Vue({
+      el: '#dynamic-component-demo',
+      data: {
+        currentTab: 'Home',
+        tabs: ['Home', 'Posts', 'Archive']
+      },
+      methods: {
+        add: function () {
+          this.tabs.push(this.currentTab)
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <div>
+      <div id="svgCanvas"></div>
+    </div>
+    <script>
+
+        var canvas = d3.select("#svgCanvas"), //获取画布
+          //获取标题区域
+          /*lineGenerator = d3.line()
+            .x(function(d) {
+              return d[0];
+            })
+            .y(function(d) {
+              return d[1];
+            });
+
+        var width = 340,
+          height = 243;
+        width -= 32;
+
+        var parseDate = d3.timeParse("%Y");
+        let a = 10;
+
+        var x = d3
+          .scaleTime()
+          .domain([2000, 2010])
+          .range([26, width - 12]);
+        var y = d3
+          .scaleLinear()
+          .domain([0, 400])
+          .range([height - 53, 72]);
+        var YAxis = d3
+          .axisLeft(y)
+          .ticks([10])
+          .tickSize([3])
+          .tickPadding([1]);
+        var XAxis = d3.axisBottom(x).tickValues([0]);
+        var defs = canvas.append("defs");
+        //添加背景颜色
+        canvas
+          .append("rect")
+          .attr("x", "0")
+          .attr("y", "0")
+          .attr("width", canvas.attr("width"))
+          .attr("height", canvas.attr("height"))
+          .attr("fill", "#394156");
+
+        //获取颜色组合
+        var colors = d3.schemeCategory10,
+          len = colors.length,
+          //获取相关的曲线工厂
+          curves = [
+            "curveBasis",
+            "curveBasisClosed",
+            "curveBasisOpen",
+            "curveBundle",
+            "curveCardinal",
+            "curveCardinalClosed",
+            "curveCardinalOpen",
+            "curveCatmullRom",
+            "curveCatmullRomClosed",
+            "curveCatmullRomOpen",
+            "curveLinear",
+            "curveLinearClosed",
+            "curveMonotoneX",
+            "curveMonotoneY",
+            "curveNatural",
+            "curveStep",
+            "curveStepAfter",
+            "curveStepBefore"
+          ];
+*/
+        //创建曲线函数
+        function createLine(lineData, dataIN, datapoint) {
+          canvas.selectAll("path.curve").remove();
+
+          //插入defs渐变
+          var linearGra = defs
+            .append("linearGradient")
+            .attr("id", "xsyxsy")
+            .attr("x1", "0")
+            .attr("x2", "0")
+            .attr("y1", "20%")
+            .attr("y2", "80%");
+          linearGra
+            .append("stop")
+            .attr("offset", "0%")
+            .attr("stop-opacity", "1")
+            .attr("style", "stop-color:rgb(202,157,93)"); //"stop-color:rgb(0,250,0)")//
+          linearGra
+            .append("stop")
+            .attr("offset", "100%")
+            .attr("stop-opacity", "0")
+            .attr("style", "stop-color:rgb(202,157,93)"); //"stop-color:rgb(0,250,0)")
+          //.attr("height", y(1));
+          //定义面积图
+          var area = d3
+            .area()
+            .curve(d3.curveCardinal)
+            .x(function(d, i, data_) {
+              return x(d.dx);
+            })
+            .y1(function(d, i, data_) {
+              return y(d.dy);
+            })
+            .y0(y(0));
+
+          console.log(JSON.stringify(area(dataIN)));
+          //xsy画曲线下方的面积
+          canvas
+            .append("path")
+            //.attr("style","fill:url(#xsyxsy)")
+            .attr("style", "#FF0000")
+            .attr("d", area(dataIN))
+            .attr("stroke", "none");
+
+          //画曲线
+          canvas
+            .append("path")
+            .classed("curve", true)
+            .attr("id", "xsy")
+            .attr("stroke", "#CA9D5D")
+            .attr("stroke-width", "2")
+            .attr("fill", "none")
+            .attr("d", lineData);
+
+          /**画坐标轴 */
+          var gY = canvas
+            .append("g")
+            .attr("transform", "translate(" + x("2000") + "," + 0 + ")")
+            .attr("style", "color:#696969")
+            .call(YAxis);
+
+          var gX = canvas
+            .append("g")
+            .attr("style", "color:#696969")
+            .attr("transform", "translate(" + 0 + "," + y(0) + ")") //调整坐标轴的位置 对应要调整映射的数值范围
+            .attr("stroke-width", "1")
+            .call(XAxis);
+
+          gY.append("text")
+            .attr("y", y(500))
+            .attr("transform", "translate(" + 8 + "," + 0 + ")")
+            .attr("fill", "#F4F5F6")
+            .attr("dy", ".91em")
+            .text("增长量");
+          gX.append("text")
+            .attr("x", x("2011"))
+            .attr("fill", "#F4F5F6")
+            .attr("dy", ".91em")
+            .text("年份");
+          //两个图的分隔符
+          canvas
+            .append("line")
+            .attr("y1", y(-250))
+            .attr("y2", y(-250))
+            .attr("x1", x("1999"))
+            .attr("x2", x("2011"))
+            .attr("stroke", "#475677");
+          for (let i = 1; i < 11; i++) {
+            let a = 2000 + 1 * i;
+            a = "" + a;
+            //坐标轴的标记
+            canvas
+              .append("line")
+              //.attr("transform","translate("+1+","+12+")")
+              //.attr("id","xsyline")
+              //.attr("stroke-dasharray","5")
+              .attr("y1", y(-20))
+              .attr("y2", y(0))
+              .attr("x1", x(a))
+              .attr("x2", x(a))
+              .attr("stroke", "#696969");
+
+            //画坐标虚线
+            canvas
+              .append("line")
+              //.attr("transform","translate("+26+","+15+")")
+              .attr("id", "xsyline")
+              .attr("stroke-dasharray", "5")
+              .attr("y1", y(-10))
+              .attr("y2", y(420))
+              .attr("x1", x(a))
+              .attr("x2", x(a))
+              .attr("stroke", "#696969");
+          }
+          canvas
+            .append("text")
+            .attr("y", "2")
+            .attr("x", width / 3)
+            .attr("dy", "1.91em")
+            .attr("fill", "#F4F5F6")
+            .text("年发电量增长");
+
+          //画圆圈
+          var circlepoint_1 = canvas
+            .append("circle")
+            .attr("r", "5")
+            .attr("transform", function(d) {
+              return (
+                "translate(" + x(datapoint.year) + "," + y(datapoint.dy) + ")"
+              );
+            });
+          var circlepoint_2 = canvas
+            .append("circle")
+            .attr("r", "3")
+            .attr("fill", "#E3A33C")
+            .attr("transform", function(d) {
+              return (
+                "translate(" + x(datapoint.year) + "," + y(datapoint.dy) + ")"
+              );
+            });
+
+          /* canvas.append('svg:image')
+                .attr("transform","translate("+x(datapoint.year)+","+(y(datapoint.dy)-10)+")")
+                .attr("width","31")
+                .attr("height","30")
+                .attr('href', "http://localhost:3000/talk1.png ");*/
+          canvas
+            .append("svg:image")
+            .attr(
+              "transform",
+              "translate(" +
+                (x(datapoint.year) - 10) +
+                "," +
+                (y(datapoint.dy) - 29) +
+                ")"
+            )
+            .attr("width", "31")
+            .attr("height", "30")
+            .attr("href", talkxsy)
+            .append("div");
+
+          canvas
+            .append("text")
+            .attr(
+              "transform",
+              "translate(" +
+                x(datapoint.year) +
+                "," +
+                (y(datapoint.dy) - 12) +
+                ")"
+            )
+            .attr("id", "NoPoint")
+            .text(datapoint.dy);
+
+          console.log("end");
+        }
+
+        var dataToOne = [],
+          dataToTwo = [];
+
+        var dataX = data.map(d => {
+          dataToOne.push({ dx: x(d[0]), dy: y(d[1]) });
+          return [x(d[0]), y(d[1])];
+        });
+
+        var lines = lineGenerator.curve(d3[curves[4]])(dataX);
+        /*console.log("data:  "+JSON.stringify(dataX));
+    console.log("datapoint:  "+datapoint);*/
+        createLine(lines, dataIN, datapoint);
+    </script>
+  </body>
+</html>
