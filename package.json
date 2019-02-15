@@ -1,0 +1,24 @@
+{
+  "name": "js",
+  "version": "1.0.0",
+  "description": "- [vue源码学习](./vue/index.js) ## Javascript之基础篇 - [原型链](https://github.com/GrowthCoder/js-base/issues/1) - [闭包](https://github.com/GrowthCoder/js-base/issues/2#issue-364715845) - [EventLoop & requestAnimationFrame](https://github.com/GrowthCoder/js-base/issues/3#issue-381501039) ## Javascript之设计模式 - [发布-订阅模式](./design/pub-sub/common.js) - [策略模式](./design/strategy/index.js) - [策略模式](./design/strategy/index.js) ## Koa - [koa学习](./koa-demo/app.js)",
+  "main": "index.js",
+  "dependencies": {
+    "env2": "^2.2.2",
+    "hapi": "^16.7.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GrowthCoder/js-base.git"
+  },
+  "author": "gaoting",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GrowthCoder/js-base/issues"
+  },
+  "homepage": "https://github.com/GrowthCoder/js-base#readme"
+}
