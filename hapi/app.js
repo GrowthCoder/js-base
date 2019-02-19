@@ -1,6 +1,7 @@
 const config = require('./config');
 const Hapi = require('hapi');
 const pluginHapiSwagger = require('./plugins/hapi-swagger');
+const pluginHapiPagination = require('./plugins/hapi-pagination');
 const routeHello = require('./routes/hello');
 const routeShops = require('./routes/shops');
 const routeOrders = require('./routes/orders');
@@ -12,9 +13,10 @@ server.connection({
 })
 
 const init = async () => {
-  // 注册swagger
+  // 注册swagger 插件
   await server.register([
-    ...pluginHapiSwagger
+    ...pluginHapiSwagger,
+    pluginHapiPagination
   ]);
   server.route([
     ...routeHello, 
