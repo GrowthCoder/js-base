@@ -1,4 +1,4 @@
-# js基础学习-设计模式-vue源码学习
+# js基础学习-设计模式-vue源码学习-node
 
 - [vue源码学习](./vue/index.js)
 ## Javascript之基础篇
@@ -12,5 +12,7 @@
 ## Koa
 - [koa学习](./koa-demo/app.js)
 
+## Hapi
+- [hapidemo](./hapi/app.js)
 ## CSS 
-- [水平垂直剧中]()
+- [水平垂直居中]()

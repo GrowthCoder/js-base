@@ -16,7 +16,9 @@
     "vision": "^4.1.1"
   },
   "devDependencies": {
-    "sequelize-cli": "^5.4.0"
+    "sequelize-cli": "^5.4.0",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
