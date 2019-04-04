@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "sequelize-cli": "^5.4.0",
+    "tapable": "^1.1.1",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0"
   },

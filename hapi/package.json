@@ -1,0 +1,17 @@
+{
+  "name": "hapi",
+  "version": "1.0.0",
+  "description": "- 项目工程初始化   - env2 保存环境变量到process.env中 - 接口契约与入参校验",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jsonwebtoken": "^8.5.1"
+  },
+  "devDependencies": {
+    "hapi-auth-jwt2": "^7.4.1"
+  }
+}

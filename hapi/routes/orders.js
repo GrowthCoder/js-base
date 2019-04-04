@@ -1,5 +1,6 @@
 const Joi = require('joi');
 const GROUP_NAME = 'orders';
+const { jwtHeaderDefine } = require('../utils/router-helper')
 
 module.exports = [
   {
@@ -12,9 +13,7 @@ module.exports = [
       tags: ['api', GROUP_NAME],
       description: '创建订单',
       validate: {
-        headers: Joi.object({
-          authorization: Joi.string().required()
-        }).unknown()
+       ...jwtHeaderDefine
       }
     }
   },
