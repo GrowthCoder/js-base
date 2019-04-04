@@ -1,6 +1,6 @@
 const webpack = require('webpack')
 const merge = require('webpack-merge')
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
+// const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 const baseWebpackConfig = require('./base.conf')
 // 抽离css文件
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
@@ -14,15 +14,12 @@ module.exports = merge(baseWebpackConfig, {
         test: /\.css$/, 
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: 'css-loader'
+          use: 'css-loader!postcss-loader'
         })
       },
     ]
   },  
   plugins: [
-    new UglifyJSPlugin({
-      sourceMap: true
-    }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
     }),
