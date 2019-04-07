@@ -5,7 +5,7 @@ const { paginationDefine }  = require('../utils/router-helper');
 
 module.exports = [{
   method: 'GET',
-  path: `/${GROUP_NAME}`,
+  path: `/api/${GROUP_NAME}`,
   handler: async(request, reply) => {
     const {rows: results, count: totalCount} = await models.plans.findAndCountAll({
       attributes: {
@@ -15,7 +15,7 @@ module.exports = [{
       offset: (request.query.page - 1) * request.query.limit
     });
 
-    reply({ results, totalCount });
+    reply({ results, totalCount, code: 200 });
   },
   config: {
     tags: ['api', GROUP_NAME],
@@ -29,14 +29,14 @@ module.exports = [{
   }
 }, {
   method: 'POST',
-  path: `/${GROUP_NAME}/add`,
+  path: `/api/${GROUP_NAME}/add`,
   handler: async(request, reply) => {
     let { type } = request.payload;
     type = type || 'cn';
     console.log(request.payload)
     const a = await models.plans.create({...request.payload, type})
 
-    reply({success: !!a.id});
+    reply({success: !!a.id, code: 200 });
   },
   config: {
     auth: false,
@@ -55,7 +55,7 @@ module.exports = [{
   }
 }, {
   method: 'POST',
-  path: `/${GROUP_NAME}/{planId}/modify`,
+  path: `/api/${GROUP_NAME}/{planId}/modify`,
   handler: async(request, reply) => {
     const { planId } = request.params
     const data = {id: planId}
@@ -66,7 +66,7 @@ module.exports = [{
       }
     )
     const success = !!result[0]
-    reply({success});
+    reply({success, code: 200 });
   },
   config: {
     tags: ['api', GROUP_NAME],
@@ -80,10 +80,10 @@ module.exports = [{
   }
 }, {
   method: 'POST',
-  path: `/${GROUP_NAME}/{planId}/delete`,
+  path: `/api/${GROUP_NAME}/{planId}/delete`,
   handler: async(request, reply) => {
     const a = await models.plans.destroy({where: {id: request.params.planId}})
-    reply({success: !!a});
+    reply({success: !!a, code: 200 });
   },
   config: {
     tags: ['api', GROUP_NAME],

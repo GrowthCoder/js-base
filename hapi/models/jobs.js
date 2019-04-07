@@ -1,6 +1,8 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const jobs = sequelize.define('jobs', {
+    type: DataTypes.STRING,
+    lang: DataTypes.STRING,
     name: DataTypes.STRING,
     area: DataTypes.STRING,
     detail: DataTypes.STRING,

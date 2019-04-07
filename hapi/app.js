@@ -10,8 +10,16 @@ const routeOrders = require('./routes/orders');
 const routeUsers = require('./routes/users');
 const routePlans = require('./routes/plans');
 const routeNews = require('./routes/news');
+const routeUpload = require('./routes/upload');
 
-const server = new Hapi.Server();
+const server = new Hapi.Server({
+  connections: {
+    state: {
+      // If your cookie format is not RFC 6265, set this param to false.
+      strictHeader: false    
+    }
+  }
+});
 server.connection({
   port: config.port,
   host: config.host,
@@ -33,7 +41,8 @@ const init = async () => {
     ...routeOrders,
     ...routeUsers,
     ...routePlans,
-    ...routeNews
+    ...routeNews,
+    ...routeUpload
   ]);
 
   // 启动服务

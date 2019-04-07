@@ -5,7 +5,7 @@ const { paginationDefine }  = require('../utils/router-helper');
 
 module.exports = [{
   method: 'GET',
-  path: `/${GROUP_NAME}`,
+  path: `/api/${GROUP_NAME}`,
   handler: async(request, reply) => {
     const {rows: results, count: totalCount} = await models.news.findAndCountAll({
       attributes: {
@@ -15,7 +15,7 @@ module.exports = [{
       offset: (request.query.page - 1) * request.query.limit
     });
 
-    reply({ results, totalCount });
+    reply({ results, totalCount, code: 200 });
   },
   config: {
     tags: ['api', GROUP_NAME],
@@ -29,7 +29,7 @@ module.exports = [{
   }
 }, {
   method: 'POST',
-  path: `/${GROUP_NAME}/{newsId}/delete`,
+  path: `/api/${GROUP_NAME}/{newsId}/delete`,
   handler: async(request, reply) => {
     const a = await models.news.destroy({where: {id: request.params.newsId}})
     reply({success: !!a});
@@ -46,12 +46,12 @@ module.exports = [{
   }
 }, {
   method: 'POST',
-  path: `/${GROUP_NAME}/add`,
+  path: `/api/${GROUP_NAME}/add`,
   handler: async(request, reply) => {
-    let { type } = request.payload;
-    type = type || 'cn';
+    let { lang } = request.payload;
+    lang = lang || 'cn';
     console.log(request.payload)
-    const a = await models.news.create({...request.payload, type})
+    const a = await models.news.create({...request.payload, lang})
 
     reply({success: !!a.id});
   },
@@ -61,12 +61,9 @@ module.exports = [{
     description: '校招行程添加',
     validate: {
       payload: {
-        school: Joi.string().required(),
-        date: Joi.string().required(),
-        address: Joi.string().required(),
-        time: Joi.string().required(),
-        activity: Joi.string(),
-        type: Joi.string()
+        newsTitle: Joi.string().required(),
+        mainInfo: Joi.string().required(),
+        // newsPictureId: Joi.string().required(),
       }
     }
   }
