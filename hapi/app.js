@@ -9,6 +9,7 @@ const routeShops = require('./routes/shops');
 const routeOrders = require('./routes/orders');
 const routeUsers = require('./routes/users');
 const routePlans = require('./routes/plans');
+const routeNews = require('./routes/news');
 
 const server = new Hapi.Server();
 server.connection({
@@ -31,7 +32,8 @@ const init = async () => {
     ...routeShops, 
     ...routeOrders,
     ...routeUsers,
-    ...routePlans
+    ...routePlans,
+    ...routeNews
   ]);
 
   // 启动服务
