@@ -10,6 +10,7 @@ const routeOrders = require('./routes/orders');
 const routeUsers = require('./routes/users');
 const routePlans = require('./routes/plans');
 const routeNews = require('./routes/news');
+const routeJobs = require('./routes/jobs');
 const routeUpload = require('./routes/upload');
 
 const server = new Hapi.Server({
@@ -42,6 +43,7 @@ const init = async () => {
     ...routeUsers,
     ...routePlans,
     ...routeNews,
+    ...routeJobs,
     ...routeUpload
   ]);
 
