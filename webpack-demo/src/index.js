@@ -1,4 +1,4 @@
-
+require('babel-polyfill');
 import _ from 'lodash';
 import './main.css';
 import Icon from './icon.png';
@@ -36,3 +36,6 @@ function component() {
   return ele;
 }
 document.body.appendChild(component());
+
+const arr = Array.from('foo');
+console.log(arr);
