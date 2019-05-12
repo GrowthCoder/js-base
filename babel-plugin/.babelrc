@@ -1,5 +1,5 @@
 {
-  "plugins": [["./plugin", {
+  "plugins": [["./import-plugin", {
     "libraryName": "lodash"
   }]]
 }
