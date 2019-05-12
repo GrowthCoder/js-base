@@ -2,6 +2,7 @@ import _regeneratorRuntime from "@babel/runtime/regenerator";
 import "core-js/modules/es6.promise";
 import "regenerator-runtime/runtime";
 import _asyncToGenerator from "@babel/runtime/helpers/asyncToGenerator";
+import _classCallCheck from "@babel/runtime/helpers/classCallCheck";
 import "core-js/modules/es7.array.includes";
 import "core-js/modules/es6.string.includes";
 import "core-js/modules/es6.object.assign";
@@ -15,6 +16,10 @@ Object.assign({}, {
   1: 1
 });
 "foobar".includes("foo");
+
+var Person = function Person() {
+  _classCallCheck(this, Person);
+};
 
 function testAwait() {
   return _testAwait.apply(this, arguments);
