@@ -11,9 +11,11 @@ module.exports = function({ types: t }) {
         if (libraryName === source.value && !t.isImportDefaultSpecifier(specifiers[0])) {
           var declarations = specifiers.map(specifier => {
             return t.ImportDeclaration(
+              // importDefaultSpecifier: import foo from './foo';
               [t.importDefaultSpecifier(specifier.local)],
               t.StringLiteral(`${source.value}/${specifier.local.name}`))
           })
+          // 替换多个节点
           path.replaceWithMultiple(declarations);
         }
       }
