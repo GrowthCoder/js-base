@@ -2,6 +2,7 @@ const merge = require('webpack-merge')
 const webpack = require('webpack')
 const baseWebpackConfig = require('./base.conf')
 const path = require('path')
+const { VueLoaderPlugin } = require('vue-loader')
 
 module.exports = merge(baseWebpackConfig, {
   mode: 'development',
@@ -18,6 +19,10 @@ module.exports = merge(baseWebpackConfig, {
   module: {
     // 根据正则表达式，来确定应该查找哪些文件，并将其提供给制定的loader
     rules: [
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+      },
       { 
         test: /\.css$/, 
         use: [
@@ -30,5 +35,6 @@ module.exports = merge(baseWebpackConfig, {
   },
   plugins: [
     new webpack.NamedModulesPlugin(),
+    new VueLoaderPlugin()
   ]
 })

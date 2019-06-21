@@ -13,7 +13,7 @@ const WorkboxPlugin = require('workbox-webpack-plugin');
 
 module.exports = {
   entry: {
-    app: './src/index.js',
+    app: './src/vue-main.js',
     vendor: [
       'lodash'
     ]
@@ -26,6 +26,10 @@ module.exports = {
   module: {
     // 根据正则表达式，来确定应该查找哪些文件，并将其提供给制定的loader
     rules: [
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+      },
       {
         test: /\.(png|svg|jpg|gif)$/,
         use: [
