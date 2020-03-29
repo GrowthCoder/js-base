@@ -1,0 +1,57 @@
+{
+  "message": "",
+  "data": {
+      "activity_info": {
+        "start_time": 1000,
+        "end_time": 2000,
+        "current_time": 1500
+      },
+      // 群信息
+      "group_info": {
+        "active_status": 0, // 激活状态
+        "help_num": 1, // 助力人数
+        "need_num": 10 // 需要助力人数
+      },
+      // 抽奖商品
+      "draw_items": [{
+        "item_sub_title": "商品标题	",
+        "item_title": "【0yuan抽】价值49.9元",
+        "item_desc": "满35人开奖，1人必得",
+        "iid": 10000,
+        "item_img": "https://m.beidian.com",
+        "item_status": 1
+      }],
+      "award_info": {
+        "nick": "",
+        "name": "",
+        "avatar": ""
+      },
+      // 券信息
+      "coupon_info": {
+        "coupon_price": 10000,
+        "coupon_title": "群专属优惠券",
+        "coupon_desc": ""
+      },
+      "sell_items": [{
+        "item_title": "",
+        "item_desc": "",
+        "iid": "",
+        "item_price": "",
+        "earn_money": "",
+        "sell_count": "",
+        "item_tag": ""
+      }]
+  },
+  "user_login_type": 2
+}
+
+// 激活页面
+// 上传图片接口
+// 
+{
+  "img_list": []
+}
+// response 
+{
+
+}

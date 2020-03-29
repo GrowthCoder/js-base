@@ -11,6 +11,8 @@ const ManifestPlugin = require('webpack-manifest-plugin');
 // PWA 插件
 const WorkboxPlugin = require('workbox-webpack-plugin');
 
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
+
 module.exports = {
   entry: {
     app: './src/vue-main.js',
@@ -52,35 +54,36 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: '管理输出'
     }),
-    new WorkboxPlugin.GenerateSW({
-        // 这些选项帮助 ServiceWorkers 快速启用
-       // 不允许遗留任何“旧的” ServiceWorkers
-      clientsClaim: true,
-      skipWaiting: true
-    })
+    new VueLoaderPlugin(),
+    // new WorkboxPlugin.GenerateSW({
+    //     // 这些选项帮助 ServiceWorkers 快速启用
+    //    // 不允许遗留任何“旧的” ServiceWorkers
+    //   clientsClaim: true,
+    //   skipWaiting: true
+    // })
     // new BundleAnalyzerPlugin()
   ],
   // splitChunks 打包优化
-  optimization: {
-    splitChunks: {
-      chunks: 'initial',
-      minSize: 30000,
-      maxSize: 0,
-      minChunks: 1,
-      maxAsyncRequests: 5,
-      maxInitialRequests: 3,
-      name: true,
-      cacheGroups: {
-        vendors: {
-          test: /[\\/]node_modules[\\/]/,
-          priority: -10
-        },
-        default: {
-          minChunks: 2,
-          priority: -20,
-          reuseExistingChunk: true
-        }
-      }
-    }
-  }
+  // optimization: {
+  //   splitChunks: {
+  //     chunks: 'initial',
+  //     minSize: 30000,
+  //     maxSize: 0,
+  //     minChunks: 1,
+  //     maxAsyncRequests: 5,
+  //     maxInitialRequests: 3,
+  //     name: true,
+  //     cacheGroups: {
+  //       vendors: {
+  //         test: /[\\/]node_modules[\\/]/,
+  //         priority: -10
+  //       },
+  //       default: {
+  //         minChunks: 2,
+  //         priority: -20,
+  //         reuseExistingChunk: true
+  //       }
+  //     }
+  //   }
+  // }
 }
