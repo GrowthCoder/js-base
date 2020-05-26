@@ -1,0 +1,23 @@
+{
+  "presets": [
+    [
+      "@babel/env",
+      {
+        "targets": { // 目标环境
+          "browsers": [ // 浏览器
+            "last 2 versions",
+            "ie >= 10"
+          ],
+          "node": "current" // node
+        },
+        "useBuiltIns": "usage",
+        "corejs": 3
+      }
+    ]
+  ],
+  "plugins": [
+    ["@babel/transform-runtime", {
+      "corejs": 3 // use @babel/runtime-corejs3
+    }]
+  ]
+}
