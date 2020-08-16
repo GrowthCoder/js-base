@@ -1,23 +1,23 @@
 {
   "presets": [
     [
-      "@babel/env",
+      "@babel/preset-env",
       {
         "targets": { // 目标环境
           "browsers": [ // 浏览器
-            "last 2 versions",
-            "ie >= 10"
-          ],
-          "node": "current" // node
+            "android >= 4.0",
+            "ios_saf >= 7.0"
+          ]
         },
         "useBuiltIns": "usage",
         "corejs": 3
       }
     ]
-  ],
-  "plugins": [
-    ["@babel/transform-runtime", {
-      "corejs": 3 // use @babel/runtime-corejs3
-    }]
   ]
+  // 局部 不影响全局变量
+  // "plugins": [
+  //   ["@babel/transform-runtime", {
+  //     "corejs": 3 // use @babel/runtime-corejs3
+  //   }]
+  // ]
 }

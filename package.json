@@ -13,7 +13,8 @@
     "mysql2": "^1.6.5",
     "package": "^1.0.1",
     "sequelize": "^4.42.0",
-    "vision": "^4.1.1"
+    "vision": "^4.1.1",
+    "weixin-js-sdk": "^1.6.0"
   },
   "devDependencies": {
     "sequelize-cli": "^5.4.0",

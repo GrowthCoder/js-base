@@ -1,3 +1,1 @@
-class A {}
-class B {}
-console.log(process.cwd())
+console.log([4,5,6].includes(1))

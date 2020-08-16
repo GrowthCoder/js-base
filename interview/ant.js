@@ -16,10 +16,11 @@ function lastPromise(promiseFunction) {
 
 let count = 0;
 let promiseFunction = () =>
-    new Promise(rs =>
-    window.setTimeout(() => {
-        rs(count++);
-    })
+    new Promise(rs => {
+        window.setTimeout(() => {
+            rs(count++);
+        })
+    }
 );
 
 let lastFn = lastPromise(promiseFunction);
