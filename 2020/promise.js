@@ -1,5 +1,7 @@
 /*
 * https://mp.weixin.qq.com/s/_YxwV2umR7PH-R2ouCepSQ
+
+* 整体流程：new Promise ->then收集回调 -> resolve/reject执行回调
 * 观察者模式
 * 1、promise接收一个executor，立即执行，内部任务被放进宏/微任务中
 * 2、then()执行，收集成功或者失败回调，
@@ -89,6 +91,7 @@ class MyPromise {
         case PENDING:
           this._resolveQueue.push(fulfilledFn)
           this._rejectQueue.push(rejectedFn)
+          console.log(this._rejectQueue)
           break
           // 当状态非pending 直接执行回调
         case FULFILLED:
@@ -105,36 +108,110 @@ class MyPromise {
     return this.then(undefined, rejectFn)
   }
   // 静态resolve方法
+  /**
+   * 如果参数是promise 原封不动
+   * 如果是thenable对象，则执行then方法返回
+   * 如果其他类型，则包一层promise返回
+   * @param {*} value 
+   */
   static resolve(value) {
+    if(value instanceof MyPromise) return value;
+    return new MyPromise(resolve => resolve(value))
+  }
+  static reject(reason) {
+    return new MyPromise((resolve, reject) => reject(reason))
+  }
+  // 静态all方法
+  static all(promiseArr) {
+    let index = 0;
+    let result = [];
 
+    return new MyPromise((resolve, reject) => {
+      promiseArr.forEach((p, i) => {
+        MyPromise.resolve(p).then(val => {
+          index++;
+          result[i] = val;
+
+          if (promiseArr.length === index) {
+            // 所有数据都正常返回 则返回  数组形式
+            resolve(result)
+          }
+        }, err => {
+          // 返回第一个错误的promise信息
+          reject(err)
+        })
+      })
+    })
   }
 }
 
 const p1 = new MyPromise((resolve, reject) => {
+  // 兼容同步/异步任务 保持执行流程不变
   // setTimeout(() => {
     resolve(1)
   // }, 500);
 })
 
-p1
-  .then(res => {
-    console.log(res, '1')
-    return 2//链式调用测试
-  })
-  .then()
-  .then(res => {
-    console.log(res, '2')
-    return new MyPromise((resolve, reject) => {
-      resolve(3)
-    })
-  })
-  .then(res => {
-    console.log(res, '3')
-    throw new Error('reject 测试')
-  })
-  .then(res => {
-    console.log(res, '4')
-  }, err => {
-    console.log(err, 'err')
-})
+// p1
+//   .then(1)
+//   .then() // 值穿透
+//   .then(res => {
+//     console.log(res, '2')
+//     return new MyPromise((resolve, reject) => {
+//       resolve(3)
+//     })
+//   })
+//   .then(res => {
+//     console.log(res, '3')
+//     // throw new Error('reject 测试')
+//   })
+//   .then(res => {
+//     console.log(res, '4')
+//   }, err => {
+//     console.log(err, 'err')
+// })
 
+// async 错误处理 1
+// async function f() {
+//   await Promise.reject('error')
+// }
+// f().then(res => console.log(res))
+// .catch(err => console.log(err))
+
+// async 错误处理2
+// async function main() {
+//   try {
+//     const a = await Promise.resolve(1);
+//     const b = await Promise.reject('error')
+//     const c = await Promise.resolve(2)
+//     console.log(a, b, c)
+//   } catch(err) {
+//     console.log(err)
+//   }
+// }
+// main().then(res => console.log(res))
+// .catch(err => console.log(err))
+
+function fetch(url) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(url)
+    }, 1000)
+  })
+}
+
+// 按顺序完成异步操作
+function logInOrder(urls) {
+  const textPromises = urls.map(url => {
+    return fetch(url).then(response => response);
+  });
+
+  // 按次序输出
+  textPromises.reduce((chain, textPromise) => {
+    console.log(chain)
+    return chain.then(() => textPromise)
+      .then(text => console.log(text));
+  }, Promise.resolve());
+}
+const urls = ['www.baidu.com', 'm.beidian.com']
+logInOrder(urls)

@@ -3,7 +3,7 @@
 *  2、缺点 包含引用类型值的原型属性会被所有实例共享
 *  3、修改了原型对象上的属性 会影响所有实例
 *  4、没有办法在不影响所有实例的情况下，向超类传递参数
-*/ 
+*/
 
 function SuperType(name) {
     this.colors = ['red']
@@ -60,3 +60,56 @@ var d = new ComType('bb', 12)
 console.log('d', d)
 
 // 原型式继承 Object.create()
+
+
+// 组合继承test
+function Person(val, name) {
+    this.val = val;
+    this.name = name;
+}
+
+Person.prototype.getVal = function () {
+    return this.val;
+}
+
+function Child (val) {
+    Person.call(this, val);
+}
+
+// Child.prototype = new Person()
+
+
+// 寄生组合继承
+Child.prototype = Object.create(Person.prototype)
+
+
+
+var ch = new Child('333')
+console.log(ch.getVal())
+console.log(ch instanceof Person)
+
+
+// Class 继承
+class People {
+    constructor(age) {
+        this.age = age;
+    }
+
+    getAge() {
+        return this.age;
+    }
+
+}
+class Man extends People {
+    constructor(age, name) {
+        super(age)
+        this.name = name;
+        this.getName.bind(this)
+    }
+
+    getName() {
+        return this.name
+    }
+}
+var man1 = new Man('11', 'gao')
+console.log(man1)
