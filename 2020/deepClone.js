@@ -74,7 +74,7 @@ function deepClone(source){
             if(source[keys] && typeof source[keys] === 'object'){ // 如果值是对象，就递归一下
             //   targetObj[keys] = source[keys].constructor === Array ? [] : {};
                 targetObj[keys] = deepClone(source[keys]);
-            } else { // 如果不是，就直接赋值
+            } else { // 如果不是，就直接赋值 目的 存储值而不是存储引用
                 targetObj[keys] = source[keys];
             }
         } 
@@ -84,4 +84,34 @@ function deepClone(source){
 var c = deepClone(arr)
 a.a1 = 33
 arr[3].info = 'gao'
-console.log(c)
+// console.log(c)
+
+
+function deepClone2(obj) {
+    function isObject(o) {
+      return (typeof o === 'object' || typeof o === 'function') && o !== null
+    }
+  
+    if (!isObject(obj)) {
+      throw new Error('非对象')
+    }
+  
+    let isArray = Array.isArray(obj)
+    let newObj = isArray ? [...obj] : { ...obj }
+    Reflect.ownKeys(newObj).forEach(key => {
+      newObj[key] = isObject(obj[key]) ? deepClone2(obj[key]) : obj[key]
+    })
+  
+    return newObj
+}
+
+let obj = {
+    a: [1, 2, 3],
+    b: {
+        c: 2,
+        d: 3
+    }
+}
+let newObj = deepClone2(obj)
+newObj.b.c = 1
+console.log(obj.b.c) // 2
