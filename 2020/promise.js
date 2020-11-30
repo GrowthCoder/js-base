@@ -14,10 +14,12 @@
 const PENDING = 'pending';
 const FULFILLED = 'fulfilled';
 const REJECTED = 'rejeted';
+let id = 0;
 
 class MyPromise {
   // 构造方法接收一个回调
   constructor(executor) {
+    this.id = id++;
     this._status = PENDING
     this._value = undefined // 储存then回调return的值
     this._resolveQueue = []    // then收集的执行成功的回调队列
@@ -152,24 +154,24 @@ const p1 = new MyPromise((resolve, reject) => {
   // }, 500);
 })
 
-// p1
-//   .then(1)
-//   .then() // 值穿透
-//   .then(res => {
-//     console.log(res, '2')
-//     return new MyPromise((resolve, reject) => {
-//       resolve(3)
-//     })
-//   })
-//   .then(res => {
-//     console.log(res, '3')
-//     // throw new Error('reject 测试')
-//   })
-//   .then(res => {
-//     console.log(res, '4')
-//   }, err => {
-//     console.log(err, 'err')
-// })
+p1
+  .then(1)
+  .then() // 值穿透
+  .then(res => {
+    console.log(res, '2')
+    return new MyPromise((resolve, reject) => {
+      resolve(3)
+    })
+  })
+  .then(res => {
+    console.log(res, '3')
+    // throw new Error('reject 测试')
+  })
+  .then(res => {
+    console.log(res, '4')
+  }, err => {
+    console.log(err, 'err')
+})
 
 // async 错误处理 1
 // async function f() {
@@ -192,26 +194,26 @@ const p1 = new MyPromise((resolve, reject) => {
 // main().then(res => console.log(res))
 // .catch(err => console.log(err))
 
-function fetch(url) {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve(url)
-    }, 1000)
-  })
-}
+// function fetch(url) {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//       resolve(url)
+//     }, 1000)
+//   })
+// }
 
-// 按顺序完成异步操作
-function logInOrder(urls) {
-  const textPromises = urls.map(url => {
-    return fetch(url).then(response => response);
-  });
+// // 按顺序完成异步操作
+// function logInOrder(urls) {
+//   const textPromises = urls.map(url => {
+//     return fetch(url).then(response => response);
+//   });
 
-  // 按次序输出
-  textPromises.reduce((chain, textPromise) => {
-    console.log(chain)
-    return chain.then(() => textPromise)
-      .then(text => console.log(text));
-  }, Promise.resolve());
-}
-const urls = ['www.baidu.com', 'm.beidian.com']
-logInOrder(urls)
+//   // 按次序输出
+//   textPromises.reduce((chain, textPromise) => {
+//     console.log(chain)
+//     return chain.then(() => textPromise)
+//       .then(text => console.log(text));
+//   }, Promise.resolve());
+// }
+// const urls = ['www.baidu.com', 'm.beidian.com']
+// logInOrder(urls)

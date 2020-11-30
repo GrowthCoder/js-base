@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            /* background: blue; */
+            height: 100px;
+        }
+        .float {
+            /* float: left; */
+            background: red;
+            width: 100px;
+            height: 100px;
+            margin: 100px;
+        }
+        .right {
+            position: absolute;
+            /* overflow: hidden; */
+            /* display: inline-block; */
+            height: 100px;
+            background: green;
+            margin: 100px;
+        }
+        div + p {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="float">
+        </div>
+        <div class="right">2</div>
+        <div>
+            <p>1111</p>
+            <header>
+                <p>22222</p>
+            </header>
+        </div>
+    </div>
+</body>
+</html>
