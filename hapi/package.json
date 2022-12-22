@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "formidable": "^1.2.1",
-    "jsonwebtoken": "^8.5.1"
+    "jsonwebtoken": "^9.0.0"
   },
   "devDependencies": {
     "hapi-auth-jwt2": "^7.4.1"
